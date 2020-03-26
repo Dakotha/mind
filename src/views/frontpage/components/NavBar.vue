@@ -1,7 +1,7 @@
 <template>
   <div class="sticky w-full h-16 shadow-sm bg-white">
     <div class="container mx-auto flex w-full h-full justify-between items-center">
-      <div>MindCreator</div>
+      <div>Mind Kreator</div>
 
       <div class="mainMenu">
         <router-link to="#start">Tutaj zacznij</router-link>
