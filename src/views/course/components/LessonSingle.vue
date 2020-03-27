@@ -15,11 +15,15 @@
 
 
     <!-- Modal start here -->
-    <div :class="{ hidden: isHidden }" class="fixed top-0 left-0 p-10 w-full min-h-screen bg-gray-200">  
-      <div class="container mx-auto">
-        <div @click="isHidden = true" class="mb-10">Zamknij lekcję</div>
+    <div :class="{ hidden: isHidden }" class="fixed top-0 left-0 p-10 w-full h-100 bg-gray-100 z-50 border-8">  
+      <div class="container mx-auto w-8/12">
+        <div class="mb-10 flex border-b">
+          <div @click="isHidden = true" class="mb-10">Oznacz jako przeczytane</div>
+          <div @click="isHidden = true" class="mb-10">Zamknij lekcję</div>
+        </div>
         
-        <div v-html="lesson.content"></div>
+        
+        <div v-html="lesson.content" class="overflow-y-scroll"></div>
       </div>
     </div>
     <!-- Modal end here -->

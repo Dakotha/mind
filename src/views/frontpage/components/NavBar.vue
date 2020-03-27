@@ -1,7 +1,10 @@
 <template>
-  <div class="sticky w-full h-16 shadow-sm bg-white">
+  <nav class="sticky w-full h-16 shadow-sm bg-white">
     <div class="container mx-auto flex w-full h-full justify-between items-center">
-      <div>Mind Kreator</div>
+      <router-link :to="{ name: 'FrontPage' }">
+        <!-- <div>Mind Kreator</div> -->
+        <img src="@/assets/img/mind-kreator-logo.jpg" class="w-40" alt="Mind Kreator">
+      </router-link>
 
       <div class="mainMenu">
         <router-link to="#start">Tutaj zacznij</router-link>
@@ -10,11 +13,9 @@
         <router-link to="#order">Zamów kurs</router-link>
       </div>
       
-      <div>
-        Zaloguj się
-      </div>
+      <router-link :to="{ name: 'Login' }">Logowanie</router-link>
     </div>
-  </div>
+  </nav>
 </template>
 
 <script>

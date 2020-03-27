@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 import FrontPage from '@/views/frontpage/Index.vue'
 import CourseIndex from '@/views/course/Index.vue'
 
+import Login from '@/views/auth/Login.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -16,6 +18,11 @@ const routes = [
     path: '/kurs',
     name: 'CourseIndex',
     component: CourseIndex
+  },
+  {
+    path: '/logowanie',
+    name: 'Login',
+    component: Login
   }
 ]
 
