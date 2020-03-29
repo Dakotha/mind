@@ -6,7 +6,6 @@
       <div class="flex">
         <font-awesome-icon icon="file-alt" class="mr-3 text-2xl text-gray-400" />
         <h2 v-html="lesson.title" class="text-gray-700"></h2>
-        <div v-html="lesson.id"></div>
       </div>
 
       <font-awesome-icon :icon=icon :class=iconColor class="text-2xl"></font-awesome-icon>
@@ -15,17 +14,19 @@
 
 
     <!-- Modal start here -->
-    <div :class="{ hidden: isHidden }" class="fixed top-0 left-0 p-10 w-full h-100 bg-gray-100 z-50 border-8">  
-      <div class="container mx-auto w-8/12">
+    <!-- <div :class="{ hidden: isHidden }" class="flex justify-center items-center fixed top-0 left-0 w-full h-full bg-gray-100 z-50">
+    
+      <div class="container mx-auto p-10 w-8/12 h-full overflow-y-scroll">
         <div class="mb-10 flex border-b">
           <div @click="isHidden = true" class="mb-10">Oznacz jako przeczytane</div>
           <div @click="isHidden = true" class="mb-10">Zamknij lekcję</div>
         </div>
         
         
-        <div v-html="lesson.content" class="overflow-y-scroll"></div>
+        <div v-html="lesson.content" class=""></div>
       </div>
-    </div>
+
+    </div> -->
     <!-- Modal end here -->
 
   </div>

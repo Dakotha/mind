@@ -1,5 +1,5 @@
 <template>
-  <nav class="sticky w-full h-16 shadow-sm bg-white">
+  <nav class="sticky top-0 w-full h-16 shadow-sm bg-white">
     <div class="container mx-auto flex w-full h-full justify-between items-center">
       <router-link :to="{ name: 'FrontPage' }">
         <!-- <div>Mind Kreator</div> -->
@@ -13,27 +13,31 @@
         <router-link to="#order">Zamów kurs</router-link>
       </div>
       
-      <router-link :to="{ name: 'Login' }">Logowanie</router-link>
+      <div v-if="$store.state.user !== null">{{ $store.state.user.email }} | <span @click="logout" class="cursor-pointer">Wyloguj</span></div>
+      <router-link v-if="$store.state.user ==  null" :to="{ name: 'Login' }">Logowanie</router-link>
     </div>
   </nav>
 </template>
 
 <script>
-export default {
+import firebase from 'firebase'
 
+export default {
+  methods: {
+    logout() {
+      firebase.auth().signOut()
+    }
+  }
 }
 </script>
 
 <style lang="scss">
 .mainMenu {
-  // @apply h-full;
-
   & a {
     @apply inline-block h-full align-middle text-xs font-semibold text-gray-500 uppercase;
 
     &.router-link-active {
-      // @apply border-b-4 border-pink-400;
-      @apply text-pink-600;
+      @apply text-accentColor;
     }
 
     &:not(:last-child) {
