@@ -7,14 +7,13 @@
 
     <slot></slot>
     
-    <router-link :to="{ name: 'FrontPage' }">Wyloguj</router-link>
+    <router-link v-if="$store.state.user !== null" :to="{ name: 'Logout' }">{{ $store.state.user.email }} | <span>Wyloguj</span></router-link>
+    <router-link v-else :to="{ name: 'Login' }">Logowanie</router-link>
   </nav>
 </template>
 
 <script>
-export default {
-
-}
+export default {}
 </script>
 
 <style>

@@ -25,29 +25,17 @@ firebase.auth().onAuthStateChanged(function(user) {
 
   if (user) {
     // User is signed in.
-
-    console.log(user.uid)
-
     firebase.database().ref('students/' + user.uid).once('value')
       .then(snapshot => {
-
-        console.log(snapshot.val())
         store.state.user = snapshot.val()
       })
+      .catch(error => {
+        console.log('Error: ', error)
+      })
 
-    // var displayName = user.displayName;
-    // var eeemail = user.email;
-    // var emailVerified = user.emailVerified;
-    // var photoURL = user.photoURL;
-    // var isAnonymous = user.isAnonymous;
-    // var uid = user.uid;
-    // var providerData = user.providerData;
-    // ...
   } else {
     // User is signed out.
     store.state.user = null
-
-    // ...
   }
 });
 

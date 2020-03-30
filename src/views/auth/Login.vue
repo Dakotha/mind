@@ -2,9 +2,9 @@
   <div class="flex justify-center items-center w-full h-screen bg-gray-100">
     <div class="flex justify-center items-center w-6/12 bg-white shadow-lg">
 
-      <div class="w-5/12 border-r">
+      <router-link :to="{ name: 'FrontPage' }" class="w-5/12 border-r">
         <img src="@/assets/img/mind-kreator-logo-vertical.png" alt="Mind Kreator">
-      </div>
+      </router-link>
 
       <form @submit.prevent="onSubmit" class="flex flex-col px-16 py-20 w-7/12">
         <div class="flex flex-col mb-10">
@@ -24,6 +24,11 @@
 
         <div v-if="error" class="mt-10 px-3 py-2 bg-pink-600 text-sm text-white shadow-lg rounded">
           {{ error }}
+        </div>
+
+        <div class="mt-10 text-sm text-gray-600">
+          Nie masz jeszcze konta?
+          <router-link :to="{ name: 'Register' }" class="text-accentColor">Zarejestruj się.</router-link>
         </div>
       </form>
     </div>
@@ -50,16 +55,27 @@ export default {
 
       firebase.auth().signInWithEmailAndPassword(this.student.email, this.student.password)
         .then(response => {
-          this.$router.replace({ name: 'CourseDashboard' })
+
+          firebase.database().ref('students/' + response.user.uid).once('value')
+            .then(snapshot => {
+              
+              this.$store.state.user = snapshot.val()
+              localStorage.setItem('isLogged', true)
+
+              this.loading = false
+
+              if (this.$store.state.user.role == 2) this.$router.replace({ name: 'CourseDashboard' })
+              else if (this.$store.state.user.role == 1) this.$router.replace({ name: 'AdminIndex' })
+            })
+            .catch(error => {
+              console.log('Error: ', error)
+            })
         })
         .catch(error => {
+          this.loading = false
           this.error = error
         })
     }
   }
 }
 </script>
-
-<style>
-
-</style>

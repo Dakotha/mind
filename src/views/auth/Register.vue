@@ -3,8 +3,10 @@
     <div class="flex justify-center items-center w-6/12 bg-white shadow-lg">
 
       <!-- Left side start here -->
-      <div class="w-5/12 border-r">
-        <img src="@/assets/img/mind-kreator-logo-vertical.png" alt="Mind Kreator">
+      <div class="flex flex-col justify-between items-center w-5/12 border-r">
+        <router-link :to="{ name: 'FrontPage' }">
+          <img src="@/assets/img/mind-kreator-logo-vertical.png" alt="Mind Kreator">
+        </router-link>
 
         <div class="flex flex-col items-center mb-10">
           <div>Koszt dostępu do programu</div>
@@ -45,6 +47,12 @@
         <div v-if="error" class="mt-10 px-3 py-2 bg-pink-600 text-sm text-white shadow-lg rounded">
           {{ error }}
         </div>
+
+        <div class="mt-10 text-sm text-gray-600">
+          Masz już konto?
+          <router-link :to="{ name: 'Login' }" class="text-accentColor">Zaloguj się.</router-link>
+        </div>
+
       </form>
       <!-- Right side end here -->
 
@@ -62,7 +70,8 @@ export default {
         firstName: null,
         lastName: null,
         email: null,
-        password: null
+        password: null,
+        role: 2
       },
       error: null,
       loading: false
@@ -71,16 +80,16 @@ export default {
   methods: {
     onSubmit() {
       this.loading = true
+
       firebase.auth().createUserWithEmailAndPassword(this.student.email, this.student.password)
         .then(response => {
 
-          // console.log(response.user)
-          
           firebase.database().ref('/students/').child(response.user.uid).set({
             userId: response.user.uid,
             firstName: this.student.firstName,
             lastName: this.student.lastName,
-            email: this.student.email
+            email: this.student.email,
+            role: this.student.role
           })
           .then(response => {
             this.loading = false

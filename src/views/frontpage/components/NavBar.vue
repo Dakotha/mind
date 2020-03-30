@@ -7,14 +7,29 @@
       </router-link>
 
       <div class="mainMenu">
-        <router-link to="#start">Tutaj zacznij</router-link>
-        <router-link to="#description">Opis kursu</router-link>
-        <router-link to="#services">Forma kursu</router-link>
-        <router-link to="#order">Zamów kurs</router-link>
+        <router-link :to="{ name: 'FrontPage' }">Tutaj zacznij</router-link>
+        <router-link :to="{ name: 'CourseIndex' }">Opis kursu</router-link>
+        <router-link :to="{ name: 'CourseDashboard' }">Forma kursu</router-link>
+        <router-link :to="{ name: 'CourseLesson' }">Zamów kurs</router-link>
+        <router-link :to="{ name: 'AdminIndex' }">Admin</router-link>
+      </div>
+
+      <div v-if="$store.state.user !== null" class="flex items-center text-gray-500">
+        <div class="mr-3 text-base">Witaj {{ $store.state.user.firstName }}</div>
+        <router-link :to="{ name: 'CourseDashboard' }" class="mr-3">
+          <font-awesome-icon icon="tachometer-alt"/>
+        </router-link>
+
+        <router-link :to="{ name: 'Logout' }">
+          <font-awesome-icon icon="sign-out-alt"/>
+        </router-link>
       </div>
       
-      <div v-if="$store.state.user !== null">{{ $store.state.user.email }} | <span @click="logout" class="cursor-pointer">Wyloguj</span></div>
-      <router-link v-if="$store.state.user ==  null" :to="{ name: 'Login' }">Logowanie</router-link>
+      <router-link v-else :to="{ name: 'Login' }" class="mr-3">
+        Logowanie
+        <font-awesome-icon icon="sign-in-alt"/>
+      </router-link>
+      
     </div>
   </nav>
 </template>
@@ -23,9 +38,15 @@
 import firebase from 'firebase'
 
 export default {
+  data() {
+    return {
+      isMenuVisible: false
+    }
+  },
   methods: {
     logout() {
       firebase.auth().signOut()
+      localStorage.removeItem('user')
     }
   }
 }
